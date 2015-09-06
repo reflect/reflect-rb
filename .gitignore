@@ -1,2 +1,5 @@
 # Development stuff.
 *.sw[onp]
+
+# Build output
+*.gem
