@@ -3,9 +3,9 @@ $:.push File.expand_path("../lib", __FILE__)
 require "reflect/version"
 
 Gem::Specification.new do |s|
-  FILES = Dir[File.expand_path('../lib/**/*.rb', __FILE__)] + ['reflect.gemspec']
+  FILES = Dir[File.expand_path('../lib/**/*.rb', __FILE__)].map { |fi| fi.gsub(File.expand_path('../', __FILE__) +"/", "") } + ['reflect.gemspec']
 
-  s.name = "reflect"
+  s.name = "reflect-rb"
   s.version = Reflect::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
