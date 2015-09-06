@@ -47,7 +47,7 @@ module Reflect
     # @param Array|Hash records the records to create
     #
     def replace(key, records)
-      client.put("/v1/keyspaces/"+self.slug+"/tablets/"+key, records)
+      client.post("/v1/keyspaces/"+self.slug+"/tablets/"+key, records)
     end
   end
 end
