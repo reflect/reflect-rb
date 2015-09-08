@@ -10,6 +10,7 @@ module Reflect
     attr_accessor :statistics_key
     attr_accessor :description
     attr_accessor :fields
+    attr_accessor :status
     attr_accessor :created_at
     attr_accessor :updated_at
 
