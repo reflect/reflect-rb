@@ -19,7 +19,7 @@ module Reflect
         Keyspace.new(self, JSON.parse(res.body))
       else
         # TODO: What happens if we failed to look this up or whatever?
-        nil
+        raise Reflect::RequestError, Reflect._format_error_message(res)
       end
     end
 

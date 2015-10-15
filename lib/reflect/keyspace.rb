@@ -1,3 +1,4 @@
+require 'cgi'
 require 'time'
 require 'reflect/field'
 
@@ -40,7 +41,11 @@ module Reflect
     # @param Array|Hash records the records to create
     #
     def append(key, records)
-      client.put("/v1/keyspaces/"+self.slug+"/tablets/"+key, records)
+      resp = client.put("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records)
+
+      if resp.response.code != "202"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
     end
 
     # Replaces the existing records in a tablet with a net set of records.
@@ -51,7 +56,11 @@ module Reflect
     # @param Array|Hash records the records to create
     #
     def replace(key, records)
-      client.post("/v1/keyspaces/"+self.slug+"/tablets/"+key, records)
+      resp = client.post("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records)
+
+      if resp.response.code != "202"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
     end
 
     # Patches the existing records in a tablet with a net set of records. The
@@ -64,7 +73,11 @@ module Reflect
     # @param Array criteria an array of field names within a record to match
     #
     def patch(key, records, criteria)
-      client.patch("/v1/keyspaces/"+self.slug+"/tablets/"+key, records, criteria)
+      resp = client.patch("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records, "X-Criteria" => criteria.join(", "))
+
+      if resp.response.code != "202"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
     end
   end
 end
