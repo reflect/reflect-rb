@@ -1,4 +1,4 @@
-# Keyspace Operations
+# The Basics
 
 These are the basic operations to get up and running with the client.
 
