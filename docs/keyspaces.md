@@ -2,7 +2,7 @@
 
 The following methods are provided for updating data within a keyspace.
 
-## `Reflect::Keyspace#append`
+## `Reflect::Keyspace#append(key, records)`
 
 Appends a record or multiple records to a tablet. If the tablet doesn't exist
 it will be created. records can be either a single object or an array of
@@ -15,7 +15,7 @@ objects. A single object represents a single row.
 
 ### Example
 
-```
+```ruby
 require 'reflect'
 
 client = Reflect::Client.new("<API Token>")
@@ -23,7 +23,7 @@ keyspace = client.keyspace('my-keyspace-slug')
 keyspace.append("my-key", { column1: "Hello", column2: "World" })
 ```
 
-## `Reflect::Keyspace#replace`
+## `Reflect::Keyspace#replace(key, records)`
 
 Replaces the existing records in a tablet with a new set of records.  The
 `records` parameter can be either a single object or an array of objects. A
@@ -36,7 +36,7 @@ single object represents a single row.
 
 ### Example
 
-```
+```ruby
 require 'reflect'
 
 client = Reflect::Client.new("<API Token>")
@@ -44,7 +44,7 @@ keyspace = client.keyspace('my-keyspace-slug')
 keyspace.replace("my-key", { column1: "Hello", column2: "World" })
 ```
 
-## `Reflect::Keyspace#patch`
+## `Reflect::Keyspace#patch(key, records, criteria)`
 
 Patches the existing records in a tablet with the set of supplied records. The
 `criteria` parameter indicates which records to match existing records on.  In
@@ -59,7 +59,7 @@ records are dropped.
 
 ### Example
 
-```
+```ruby
 require 'reflect'
 
 client = Reflect::Client.new("<API Token>")

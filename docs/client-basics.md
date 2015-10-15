@@ -2,7 +2,7 @@
 
 These are the basic operations to get up and running with the client.
 
-## `Reflect::Client#new`
+## `Reflect::Client#new(api_token)`
 
 Instantiate a new version of the Reflect API client.
 
@@ -12,13 +12,13 @@ Instantiate a new version of the Reflect API client.
 
 ### Example
 
-```
+```ruby
 require 'reflect'
 
 client = Reflect::Client.new("<API Token>")
 ```
 
-## `Reflect::Client#keyspace`
+## `Reflect::Client#keyspace(slug)`
 
 Load the metadata associated with a keyspace. This is most useful for
 performing [Keyspace
@@ -30,7 +30,7 @@ operations](https://github.com/reflect/reflect-rb/blob/master/docs/keyspaces.md)
 
 ### Example
 
-```
+```ruby
 require 'reflect'
 
 KEYSPACE_NAME = "My Keyspace"
