@@ -1,4 +1,4 @@
-# Keyspaces Documentation
+# Keyspace Operations
 
 The following methods are provided for updating data within a keyspace.
 
