@@ -17,3 +17,14 @@ end
 namespace :test do
   task :all => [:integration, :test]
 end
+
+namespace :gem do
+  task :build do
+    system("gem build reflect.gemspec")
+  end
+
+  task :publish => :build do
+    require File.expand_path('../lib/reflect/version', __FILE__)
+    system("gem push reflect-rb-#{Reflect::VERSION}.gem")
+  end
+end
