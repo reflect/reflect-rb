@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    reflect (0.1.0)
+    reflect-rb (0.1.2)
       httparty
 
 GEM
@@ -21,7 +21,7 @@ PLATFORMS
 DEPENDENCIES
   minitest (~> 5.3)
   rake (~> 10.1.0)
-  reflect!
+  reflect-rb!
 
 BUNDLED WITH
    1.10.6
