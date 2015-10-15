@@ -35,6 +35,12 @@ module Reflect
       self.class.put(path, options(body: dump(content)))
     end
 
+    def patch(path, content, headers={})
+      opts = options(body: dump(content))
+      opts[:headers].merge!(headers) unless headers.empty?
+      self.class.patch(path, opts)
+    end
+
     private
 
     def options(opts={})

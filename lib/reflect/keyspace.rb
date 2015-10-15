@@ -33,7 +33,8 @@ module Reflect
     end
 
     # Appends records to a tablet. If the tablet doesn't exist it will be
-    # created.
+    # created. records can be either a single object or an array of objects. A
+    # single object represents a single row.
     #
     # @param String key the key to create
     # @param Array|Hash records the records to create
@@ -43,12 +44,27 @@ module Reflect
     end
 
     # Replaces the existing records in a tablet with a net set of records.
-    #
+    # records can be either a single object or an array of objects. A single
+    # object represents a single row.
+    # 
     # @param String key the key to create
     # @param Array|Hash records the records to create
     #
     def replace(key, records)
       client.post("/v1/keyspaces/"+self.slug+"/tablets/"+key, records)
+    end
+
+    # Patches the existing records in a tablet with a net set of records. The
+    # criteria parameter indicates which records to match existing records on.
+    # In the Reflect API, if no existing records match the supplied records
+    # then those records are dropped.
+    #
+    # @param String key the key to create
+    # @param Array|Hash records the records to create
+    # @param Array criteria the criteria to match records between
+    #
+    def patch(key, records, criteria)
+      client.patch("/v1/keyspaces/"+self.slug+"/tablets/"+key, records, criteria)
     end
   end
 end
