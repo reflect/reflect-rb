@@ -1,5 +1,6 @@
 $:.unshift(File.expand_path("../", __FILE__))
 
+require 'reflect/key_list'
 require 'reflect/request_error'
 require 'reflect/keyspace'
 require 'reflect/field'

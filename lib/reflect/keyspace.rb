@@ -33,6 +33,24 @@ module Reflect
       end
     end
 
+    def keys(continuation=nil)
+      base = "/v1/keyspaces/"+slug+"/keys"
+      base += "?next=#{continuation}" if continuation
+      resp = client.get(base)
+
+      if resp.response.code != "200"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
+
+      json = JSON.parse(resp.body)
+
+      if json["keys"].nil? || json["keys"].empty?
+        nil
+      else
+        KeyList.new(json["keys"], json["next"])
+      end
+    end
+
     # Appends records to a tablet. If the tablet doesn't exist it will be
     # created. records can be either a single object or an array of objects. A
     # single object represents a single row.
