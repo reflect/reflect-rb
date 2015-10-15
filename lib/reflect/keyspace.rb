@@ -61,7 +61,7 @@ module Reflect
     #
     # @param String key the key to create
     # @param Array|Hash records the records to create
-    # @param Array criteria the criteria to match records between
+    # @param Array criteria an array of field names within a record to match
     #
     def patch(key, records, criteria)
       client.patch("/v1/keyspaces/"+self.slug+"/tablets/"+key, records, criteria)
