@@ -95,6 +95,28 @@ module Reflect
       end
     end
 
+    # Patch the existing records in a tablet with a new set of records and
+    # insert any that aren't matched. The criteria parameter indicates which
+    # records to match existing records on.
+    #
+    # @param String key the key to create
+    # @param Array|Hash records the records to create
+    # @param Array criteria an array of field names within a record to match
+    #
+    def upsert(key, records, criteria)
+      headers = {
+        "X-Criteria" => criteria.join(", "),
+        "X-Insert-Missing" => true
+      }
+
+      resp = client.patch(path(slug, key), records, headers)
+
+      if resp.response.code != "202"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
+    end
+
+
     # Deletes a key within a keyspace.
     #
     # @param String key the key to delete
