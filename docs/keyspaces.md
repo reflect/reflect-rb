@@ -70,5 +70,34 @@ require 'reflect'
 
 client = Reflect::Client.new("<API Token>")
 keyspace = client.keyspace('my-keyspace-slug')
-keyspace.replace("my-key", { column1: "Hello", column2: "World" }, ["column1"])
+keyspace.patch("my-key", { column1: "Hello", column2: "World" }, ['column1'])
+```
+
+## `Reflect::Keyspace#upsert(key, records, criteria)`
+
+Patch the existing records in a tablet with a new set of records and
+insert any that aren't matched. The criteria parameter indicates which
+records to match existing records on.
+
+For more info, see the [Uploading Data Reflect API reference](https://reflect.io/docs/api-reference/uploading-data.html).
+
+### Parameters
+
+* **key** - The key for the tablet you're appending to.
+* **records** - The records to append to the tablet.
+* **criteria** - An array of field names within a record to match.
+
+### Example
+
+```ruby
+require 'reflect'
+
+client = Reflect::Client.new("<API Token>")
+keyspace = client.keyspace('my-keyspace-slug')
+recs = [
+  { column1: "Hello", column2: "World" },
+  { column1: "Again", column2: "I say HELLO" }
+]
+
+keyspace.upsert("my-key", recs, ["column1"])
 ```
