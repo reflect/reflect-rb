@@ -1,3 +1,4 @@
+require 'uri'
 require 'json'
 require 'httparty'
 require 'reflect/version'
@@ -24,15 +25,20 @@ module Reflect
     end
 
     def get(path)
-      self.class.get(path, options)
+      self.class.get(URI.encode(path), options)
     end
 
     def post(path, content)
-      self.class.post(path, options(body: dump(content)))
+      self.class.post(URI.encode(path), options(body: dump(content)))
     end
 
     def put(path, content)
-      self.class.put(path, options(body: dump(content)))
+      self.class.put(URI.encode(path), options(body: dump(content)))
+    end
+
+    def delete(path)
+      logger.debug { "[reflect] Sending DELETE #{URI.encode(path)}" }
+      self.class.delete(URI.encode(path), options)
     end
 
     def patch(path, content, headers={})
@@ -57,6 +63,10 @@ module Reflect
 
     def dump(obj)
       JSON.dump(obj)
+    end
+
+    def logger
+      Reflect.logger
     end
   end
 end

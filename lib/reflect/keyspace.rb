@@ -1,4 +1,3 @@
-require 'cgi'
 require 'time'
 require 'reflect/field'
 
@@ -34,9 +33,7 @@ module Reflect
     end
 
     def keys(continuation=nil)
-      base = "/v1/keyspaces/"+slug+"/keys"
-      base += "?next=#{continuation}" if continuation
-      resp = client.get(base)
+      resp = client.get(keys_path(slug, continuation))
 
       if resp.response.code != "200"
         raise Reflect::RequestError, Reflect._format_error_message(resp)
@@ -59,7 +56,7 @@ module Reflect
     # @param Array|Hash records the records to create
     #
     def append(key, records)
-      resp = client.put("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records)
+      resp = client.put(path(slug, key), records)
 
       if resp.response.code != "202"
         raise Reflect::RequestError, Reflect._format_error_message(resp)
@@ -74,7 +71,7 @@ module Reflect
     # @param Array|Hash records the records to create
     #
     def replace(key, records)
-      resp = client.post("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records)
+      resp = client.post(path(slug, key), records)
 
       if resp.response.code != "202"
         raise Reflect::RequestError, Reflect._format_error_message(resp)
@@ -91,11 +88,35 @@ module Reflect
     # @param Array criteria an array of field names within a record to match
     #
     def patch(key, records, criteria)
-      resp = client.patch("/v1/keyspaces/"+self.slug+"/tablets/"+CGI.escape(key), records, "X-Criteria" => criteria.join(", "))
+      resp = client.patch(path(slug, key), records, "X-Criteria" => criteria.join(", "))
 
       if resp.response.code != "202"
         raise Reflect::RequestError, Reflect._format_error_message(resp)
       end
+    end
+
+    # Deletes a key within a keyspace.
+    #
+    # @param String key the key to delete
+    #
+    def delete(key)
+      resp = client.delete(path(slug, key))
+
+      if resp.response.code != "202"
+        raise Reflect::RequestError, Reflect._format_error_message(resp)
+      end
+    end
+
+    private 
+
+    def path(slug, key)
+      "/v1/keyspaces/#{slug}/tablets/#{key}"
+    end
+
+    def keys_path(slug, continuation=nil)
+      base = "/v1/keyspaces/#{slug}/keys"
+      base += "?next=#{continuation}" if continuation
+      base
     end
   end
 end

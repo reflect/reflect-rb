@@ -23,6 +23,11 @@ namespace :gem do
     system("gem build reflect.gemspec")
   end
 
+  task :install => :build do
+    require File.expand_path('../lib/reflect/version', __FILE__)
+    system("gem install reflect-rb-#{Reflect::VERSION}.gem")
+  end
+
   task :publish => :build do
     require File.expand_path('../lib/reflect/version', __FILE__)
     system("gem push reflect-rb-#{Reflect::VERSION}.gem")

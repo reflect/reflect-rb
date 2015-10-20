@@ -13,5 +13,9 @@ module Reflect
     def each(&blk)
       keys.each(&blk)
     end
+
+    def empty?
+      keys.count < 1
+    end
   end
 end
