@@ -13,17 +13,6 @@ module Reflect
       @token = token
     end
 
-    def keyspace(slug)
-      res = get("/v1/keyspaces/#{slug}")
-
-      if res.response.code == "200"
-        Keyspace.new(self, JSON.parse(res.body))
-      else
-        # TODO: What happens if we failed to look this up or whatever?
-        raise Reflect::RequestError, Reflect._format_error_message(res)
-      end
-    end
-
     def get(path)
       self.class.get(URI.encode(path), options)
     end
