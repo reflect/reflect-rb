@@ -1,9 +1,10 @@
 $:.unshift(File.expand_path("../", __FILE__))
 
-require 'reflect/key_list'
+require 'openssl'
+require 'base64'
+
+require 'reflect/parameter'
 require 'reflect/request_error'
-require 'reflect/keyspace'
-require 'reflect/field'
 require 'reflect/client'
 
 module Reflect
@@ -27,5 +28,12 @@ module Reflect
 
   def self.logger
     @logger ||= Logger.new("/dev/null")
+  end
+
+  def self.generate_token(secret_key, parameters=[])
+    data = parameters.map(&:to_s).sort
+    digest = OpenSSL::Digest.new('sha256')
+    hmac = OpenSSL::HMAC.digest(digest, secret_key, data.join("\n"))
+    Base64.encode64(hmac).strip
   end
 end
