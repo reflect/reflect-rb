@@ -9,9 +9,5 @@ module Reflect
       @op = op
       @value = value
     end
-
-    def to_s
-      "#{field} #{op} #{value}"
-    end
   end
 end
