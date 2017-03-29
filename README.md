@@ -7,33 +7,8 @@ request!
 
 ## Documentation
 
-The [docs](https://github.com/reflect/reflect-rb/blob/master/docs) directory
-has the current set of documentation.
-
-## Example
-
-```ruby
-require 'reflect'
-
-data = [
-  {
-    customer_id: "customer1",
-    widget_id: "widget1",
-    manufactured: "Ohio",
-    temperature: 150
-  },
-  {
-    customer_id: "customer1",
-    widget_id: "widget2",
-    manufactured: "Ohio",
-    temperature: 50
-  }
-]
-
-client = Reflect::Client.new("<Your API Token>")
-keyspace = client.keyspace("demo-keyspace")
-keyspace.replace("my-tablet", data)
-```
+Please refer to the official [Reflect
+docs](https://reflect.io/docs/clients/ruby).
 
 ## Support
 
