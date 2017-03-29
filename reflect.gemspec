@@ -21,20 +21,6 @@ Gem::Specification.new do |s|
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<httparty>, [">= 0"])
-      s.add_development_dependency('rake', '~> 10.1.0')
-      s.add_development_dependency('minitest', '~> 5.3')
-    else
-      s.add_dependency(%q<httparty>, [">= 0"])
-      s.add_development_dependency('rake', '~> 10.1.0')
-      s.add_development_dependency('minitest', '~> 5.3')
-    end
-  else
-    s.add_dependency(%q<httparty>, [">= 0"])
-    s.add_development_dependency('rake', '~> 10.1.0')
-    s.add_development_dependency('minitest', '~> 5.3')
   end
 end
 
