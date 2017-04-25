@@ -2,8 +2,10 @@ $:.unshift(File.expand_path("../", __FILE__))
 
 require 'openssl'
 require 'base64'
+require 'json'
 
 require 'reflect/parameter'
+require 'reflect/version'
 
 module Reflect
   def self.generate_token(secret_key, parameters=[])
@@ -16,10 +18,16 @@ module Reflect
       JSON.generate([param.field, param.op, val, vals])
     end
 
+    hash_json(secret_key, data)
+  end
+
+
+  private
+  def self.hash_json(secret_key, json_data)
     digest = OpenSSL::Digest.new('sha256')
     hmac = OpenSSL::HMAC.new(secret_key, digest)
       .update("V2\n")
-      .update(data.sort.join("\n"))
+      .update(json_data.sort.join("\n"))
       .digest
 
     "=2=#{Base64.encode64(hmac).strip}"

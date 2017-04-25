@@ -3,3 +3,6 @@
 
 # Build output
 *.gem
+
+# Resolved gem dependency graphs are not checked into source control
+Gemfile.lock
