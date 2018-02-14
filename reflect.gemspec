@@ -19,9 +19,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.24"
   s.summary = "Reflect.io API Ruby client"
 
-  if s.respond_to? :specification_version then
+  if s.respond_to? :specification_version
     s.specification_version = 3
   end
+
+  if s.respond_to? :add_runtime_dependency
+    s.add_runtime_dependency 'jwe', '~> 0.3', '>= 0.3.0'
+  end
 end
-
-
