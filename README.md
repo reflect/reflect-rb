@@ -1,9 +1,6 @@
 # Reflect Ruby Client
 
-A ruby wrapper for the Reflect API. The current iteration is specifically
-geared for uploading data, but full support for the API is planned. If there
-are features that are missing, feel free to open an issue or even a pull
-request!
+A ruby wrapper for the Reflect API.
 
 ## Documentation
 

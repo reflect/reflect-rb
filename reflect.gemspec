@@ -23,5 +23,3 @@ Gem::Specification.new do |s|
     s.specification_version = 3
   end
 end
-
-
